@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 
 function PrivateRouting({ component: Component, ...rest }) {
     return (
@@ -6,7 +6,11 @@ function PrivateRouting({ component: Component, ...rest }) {
             <Route
                 {...rest}
                 render={(props) => {
-                    return <Component {...props} />
+                    return localStorage.getItem('token') ? (
+                        <Component {...props} />
+                    ) : (
+                        <Redirect to={{ pathname: '/login' }} />
+                    )
                 }}
             >
             </Route>

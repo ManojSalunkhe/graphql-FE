@@ -1,25 +1,31 @@
 import { useState } from "react"
-import { Button } from "@material-ui/core"
+import { Button, Paper, Typography } from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles'
 import EmailIcon from '@material-ui/icons/Email'
 import PersonIcon from '@material-ui/icons/Person'
 import VisibilityIcon from '@material-ui/icons/Visibility'
 import TextFields from "../components/TextFields"
-import { useQuery, gql, useLazyQuery, useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { REGISTER_MUTATION } from '../query'
 
 const useStyles = makeStyles(() => ({
     container: {
-        margin: "130px auto"
-    },
-    textFieldsParent: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center"
+        margin: "80px auto",
+        width: "530px",
+        height: "430px"
     },
 
-    textFields: {
-        margin: "5px auto",
+    heading: {
+        textAlign: "center",
+        marginTop: "25px"
+    },
+
+    formElements: {
+        margin: "30px 47px",
+    },
+
+    button: {
+        margin: "10px",
         minWidth: 420,
         minHeight: 30
     }
@@ -46,39 +52,43 @@ function Register() {
 
         const apiCall = async () => {
             try {
-                await register({
+                const result = await register({
                     variables: {
                         input: {
-                            email: "mani@gmail.com",
-                            password: "9876543210"
+                            username: registerCredentials.username,
+                            email: registerCredentials.email,
+                            password: registerCredentials.password
                         }
                     }
                 })
+                console.log(result.data)
             } catch (err) {
                 console.log(err)
             }
         }
         apiCall()
+        setRegisterCredentials({ username: '', email: '', password: '' })
     }
 
     return (
-        <div className={classes.container}>
-            <form onSubmit={handleRegisterSubmit} >
-                <div className={classes.textFieldsParent}>
+        <Paper className={classes.container} variant="outlined" >
+            <Typography variant="h4" className={classes.heading}>Register here</Typography >
+            <div className={classes.formElements}>
+                <form onSubmit={handleRegisterSubmit}  >
                     <TextFields Icon={PersonIcon} label="username" value={registerCredentials.username} updaterFunc={handleTextFieldChnage} />
                     <TextFields Icon={EmailIcon} label="email" value={registerCredentials.email} updaterFunc={handleTextFieldChnage} />
                     <TextFields Icon={VisibilityIcon} label="password" value={registerCredentials.password} updaterFunc={handleTextFieldChnage} />
                     <Button
-                        className={classes.textFields}
+                        className={classes.button}
                         type="submit"
                         variant="contained"
                         color="primary"
-
-                    >register
+                    >
+                        register
                     </Button>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        </Paper>
     )
 }
 

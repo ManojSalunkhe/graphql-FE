@@ -7,17 +7,8 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(() => ({
-    container: {
-        margin: "130px auto"
-    },
-    textFieldsParent: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center"
-    },
-
     textFields: {
-        margin: "5px auto",
+        margin: "10px",
         minWidth: 420,
         minHeight: 30
     }

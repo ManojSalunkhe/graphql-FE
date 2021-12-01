@@ -6,9 +6,20 @@ import PrivateRouting from "./utilities/PrivateRouting";
 
 function App() {
 
+  const token = localStorage.getItem('token')
+
   const client = new ApolloClient({
     cache: new InMemoryCache(),
-    uri: "http://localhost:4000/graphql"
+    uri: "http://localhost:4000/graphql",
+
+    fetchOptions: {
+      credentials: "include"
+    },
+
+    headers: {
+      "Authorization": JSON.parse(token)
+    }
+
   })
 
   return (

@@ -13,6 +13,7 @@ import MoreIcon from '@material-ui/icons/MoreVert'
 import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
 
+
 const useStyles = makeStyles((theme) => ({
     grow: {
         flexGrow: 1,
@@ -60,6 +61,7 @@ function NavigationBar(props) {
     const handleMenuClose = () => {
         setAnchorEl(null);
         handleMobileMenuClose();
+        localStorage.clear()
     }
 
     const handleMobileMenuOpen = (event) => {

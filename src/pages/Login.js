@@ -1,34 +1,46 @@
 import { useState } from "react"
 import {
-    Button
+    Button,
+    Paper,
+    Typography
 } from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles'
 import EmailIcon from '@material-ui/icons/Email'
 import VisibilityIcon from '@material-ui/icons/Visibility'
-import TextFields from "../components/TextFields";
+import TextFields from "../components/TextFields"
+import { useMutation } from '@apollo/client'
+import { LOGIN_MUTATION } from '../query'
 
 
 const useStyles = makeStyles(() => ({
     container: {
-        margin: "130px auto"
-    },
-    textFieldsParent: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center"
+        margin: "80px auto",
+        width: "530px",
+        height: "350px"
     },
 
-    textFields: {
-        margin: "5px auto",
+    heading: {
+        textAlign: "center",
+        marginTop: "25px"
+    },
+
+    formElements: {
+        margin: "30px 46px"
+    },
+
+    button: {
+        margin: "10px",
         minWidth: 420,
         minHeight: 30
     }
 }))
 
-function Login() {
+function Login(props) {
     const classes = useStyles()
 
     const [loginCredentials, setLoginCredentials] = useState({ email: '', password: '' })
+
+    const [login] = useMutation(LOGIN_MUTATION)
 
 
     const handleTextFieldChnage = (e, label) => {
@@ -39,25 +51,46 @@ function Login() {
     const handleLoginSubmit = (e) => {
         e.preventDefault()
         console.log(loginCredentials)
+
+        const loginApiCall = async () => {
+            try {
+                const result = await login({
+                    variables: {
+                        input: {
+                            email: loginCredentials.email,
+                            password: loginCredentials.password
+                        }
+                    }
+                })
+                setLoginCredentials({ email: '', password: '' })
+                props.history.push('/blog')
+                console.log(result.data.loginUser.token)
+                if (result) localStorage.setItem('token', JSON.stringify(result.data.loginUser.token))
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        loginApiCall()
     }
 
     return (
-        <div className={classes.container}>
-            <form onSubmit={handleLoginSubmit} >
-                <div className={classes.textFieldsParent}>
+        <Paper className={classes.container} variant="outlined"  >
+            <Typography variant="h4" className={classes.heading}>Login here</Typography >
+            <div className={classes.formElements} >
+                <form onSubmit={handleLoginSubmit} >
                     <TextFields Icon={EmailIcon} label="email" value={loginCredentials.email} updaterFunc={handleTextFieldChnage} />
                     <TextFields Icon={VisibilityIcon} label="password" value={loginCredentials.password} updaterFunc={handleTextFieldChnage} />
                     <Button
-                        className={classes.textFields}
+                        className={classes.button}
                         type="submit"
                         variant="contained"
                         color="primary"
 
                     >log in
                     </Button>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        </Paper>
     )
 }
 
