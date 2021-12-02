@@ -10,18 +10,19 @@ import VisibilityIcon from '@material-ui/icons/Visibility'
 import TextFields from "../components/TextFields"
 import { useMutation } from '@apollo/client'
 import { LOGIN_MUTATION } from '../query'
+import { Link } from "react-router-dom"
 
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     container: {
         margin: "80px auto",
-        width: "530px",
-        height: "350px"
+        width: 430,
+        height: 350
     },
 
     heading: {
         textAlign: "center",
-        marginTop: "25px"
+        marginTop: "15px"
     },
 
     formElements: {
@@ -30,8 +31,10 @@ const useStyles = makeStyles(() => ({
 
     button: {
         margin: "10px",
-        minWidth: 420,
-        minHeight: 30
+        minWidth: 320,
+        minHeight: 30,
+        backgroundColor: theme.palette.primary.light,
+        color: "black"
     }
 }))
 
@@ -88,6 +91,7 @@ function Login(props) {
 
                     >log in
                     </Button>
+                    <Typography className={classes.heading}>Not registered yet ? <Link to="/register">sign up</Link> </Typography>
                 </form>
             </div>
         </Paper>

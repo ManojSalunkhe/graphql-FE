@@ -10,15 +10,21 @@ import {
     makeStyles,
     Grid,
     Container,
-    Divider
+    Divider,
+    Avatar
 } from '@material-ui/core'
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     root: {
         margin: "20px",
         minWidth: 250,
         maxWidth: 250
+    },
+
+    heading: {
+        color: "#FCFCFC",
+        textAlign: "center"
     },
 
     cardContent: {
@@ -32,8 +38,13 @@ const useStyles = makeStyles({
 
     gridContainer: {
         flexGrow: 1
-    }
-})
+    },
+
+    avatar: {
+        backgroundColor: theme.palette.primary.light
+    },
+
+}))
 
 function Blog() {
 
@@ -50,7 +61,7 @@ function Blog() {
 
     return (
         <div>
-            <h1>Blog</h1>
+            {/* <Typography variant="h3" className={classes.heading}>Blogs - {blogs.length}</Typography> */}
             <Container>
                 <Grid container >
                     {
@@ -60,14 +71,14 @@ function Blog() {
                                     <Grid item xs={1} className={classes.root}>
                                         <Card elevation={24} >
                                             <CardActions>
-                                                <Typography >Author :  {blog.title}</Typography>
+                                                <Avatar className={classes.avatar} > {blog.title.slice(0, 1)}</Avatar> <Typography  >{blog.title.slice(1)}</Typography>
+                                                <Divider orientation="vertical" flexItem />
                                             </CardActions>
                                             <Divider />
                                             <CardContent className={classes.cardContent}>
                                                 <Typography variant="h5" >{blog.title}</Typography>
                                                 <Typography >{blog.body.slice(0, 30)}...</Typography>
                                             </CardContent>
-                                            <Divider />
                                             <CardActions className={classes.cardAction}>
                                                 <Button size="small" color="primary">view more...</Button>
                                             </CardActions>
@@ -76,7 +87,9 @@ function Blog() {
                                 </div>
                             )
                         })
-                    }</Grid></Container>
+                    }
+                </Grid>
+            </Container>
         </div >
     )
 }

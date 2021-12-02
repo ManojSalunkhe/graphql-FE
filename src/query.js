@@ -12,6 +12,18 @@ export const GET_ALL_BLOGS_QUERY = gql`
    }
 `
 
+export const GET_ACCOUNT_QUERY = gql`
+
+      query getAccount {
+         getAccountDetails{
+             id 
+             username
+             email
+             password
+         }
+      }
+`
+
 
 export const REGISTER_MUTATION = gql`
 
@@ -23,6 +35,18 @@ export const REGISTER_MUTATION = gql`
        }
     }
 
+`
+
+export const UPDATE_USER_MUTATION = gql`
+
+      mutation update($input : UpdateInput!){
+         updateUser(input : $input){
+            id
+            username
+            email
+            password
+         }
+      }
 `
 
 export const LOGIN_MUTATION = gql`

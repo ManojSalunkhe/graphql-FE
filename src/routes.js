@@ -2,6 +2,7 @@ import Blog from "./components/Blog"
 import PostBlog from "./components/PostBlog"
 import Register from "./pages/Register"
 import Login from "./pages/Login"
+import Profile from "./pages/Profile"
 
 
 export const publicRoutes = [
@@ -27,5 +28,10 @@ export const privateRoutes = [
         name: "POSTBLOG",
         path: "/post-blog",
         component: PostBlog
+    },
+    {
+        name: "PROFILE",
+        path: "/profile",
+        component: Profile
     }
 ]

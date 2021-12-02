@@ -16,8 +16,13 @@ import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
     grow: {
-        flexGrow: 1,
+        flexGrow: 1
     },
+
+    appBar: {
+        backgroundColor: theme.palette.primary.light
+    },
+
     title: {
         display: 'none',
         [theme.breakpoints.up('sm')]: {
@@ -26,13 +31,13 @@ const useStyles = makeStyles((theme) => ({
     },
     sectionDesktop: {
         display: 'none',
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('sm')]: {
             display: 'flex',
         },
     },
     sectionMobile: {
         display: 'flex',
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('sm')]: {
             display: 'none',
         },
     },
@@ -61,7 +66,8 @@ function NavigationBar(props) {
     const handleMenuClose = () => {
         setAnchorEl(null);
         handleMobileMenuClose();
-        localStorage.clear()
+        props.history.push("/profile")
+        // localStorage.clear()
     }
 
     const handleMobileMenuOpen = (event) => {
@@ -112,7 +118,7 @@ function NavigationBar(props) {
 
     return (
         <div className={classes.grow}>
-            <AppBar position="static" >
+            <AppBar position="static" className={classes.appBar}>
                 <Toolbar>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>

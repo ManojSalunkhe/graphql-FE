@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles(() => ({
     textFields: {
         margin: "10px",
-        minWidth: 420,
+        minWidth: 320,
         minHeight: 30
     }
 }))

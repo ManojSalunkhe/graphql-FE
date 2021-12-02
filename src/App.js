@@ -26,7 +26,7 @@ function App() {
     <ApolloProvider client={client}>
       <div >
         <BrowserRouter>
-          <NavigationBar />
+          {token && <NavigationBar />}
           {
             publicRoutes.map((ele) => {
               return (
